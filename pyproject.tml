@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agpyutils"
+version = "0.1.0"
+description = "My package"
+requires-python = ">=3.9"
+dependencies = [
+  "requests>=2.0",
+]
