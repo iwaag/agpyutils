@@ -5,8 +5,10 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "agpyutils"
 version = "0.1.0"
-description = "My package"
+description = "shared utils for agdev services"
 requires-python = ">=3.9"
 dependencies = [
-  "requests>=2.0",
+  "httpx",
+  "PyJWT",
+  "fastapi"
 ]
