@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 import json
 import os
 import time
@@ -52,10 +53,14 @@ def _find_signing_key(jwks: dict, kid: str | None) -> Optional[dict]:
         if key.get("kid") == kid:
             return key
     return None
+@dataclass(frozen=True)
+class AuthInfo:
+    user_id: str
+    client_id: str
 
 async def get_current_user_id_and_client_id(
     credentials: Optional[HTTPAuthorizationCredentials] = Depends(_bearer_scheme),
-) -> Tuple[str, Optional[str]]:
+) -> AuthInfo:
     if credentials is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Missing token")
 
@@ -101,4 +106,5 @@ async def get_current_user_id_and_client_id(
     if not client_id:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Missing azp")
     
-    return user_id, client_id
+    return AuthInfo(user_id=user_id, client_id=client_id)
+    
