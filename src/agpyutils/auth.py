@@ -18,7 +18,7 @@ KEYCLOAK_ISSUER = os.getenv(
 KEYCLOAK_AUDIENCE = os.getenv("KEYCLOAK_AUDIENCE", "").strip()
 JWKS_CACHE_SECONDS = int(os.getenv("JWKS_CACHE_SECONDS", "300"))
 
-_bearer_scheme = HTTPBearer(auto_error=False)
+_bearer_scheme = HTTPBearer(auto_error=True)
 _jwks_cache: Optional[dict] = None
 _jwks_cache_expires_at = 0.0
 
@@ -59,11 +59,8 @@ class AuthInfo:
     client_id: str
 
 async def get_current_user_id_and_client_id(
-    credentials: Optional[HTTPAuthorizationCredentials] = Depends(_bearer_scheme),
+    credentials: HTTPAuthorizationCredentials = Depends(_bearer_scheme),
 ) -> AuthInfo:
-    if credentials is None:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Missing token")
-
     token = credentials.credentials
     try:
         headers = jwt.get_unverified_header(token)

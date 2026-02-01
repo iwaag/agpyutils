@@ -13,3 +13,5 @@ venv/
 #tests are not ready yet
 tests/
 pytest.ini
+#package project
+poetry.lock
