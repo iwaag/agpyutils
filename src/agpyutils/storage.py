@@ -26,7 +26,7 @@ class CopyObjectRequest(BaseModel):
 STORAGE_SERVICE_URL=os.getenv("STORAGE_SERVICE_URL")
 DOWNLOAD_PRESIGN_URL=f"{STORAGE_SERVICE_URL}/s3/presign/download"
 UPLOAD_PRESIGN_URL=f"{STORAGE_SERVICE_URL}/s3/presign/upload"
-COPY_URL=f"{STORAGE_SERVICE_URL}/s3/presign/copy"
+COPY_URL=f"{STORAGE_SERVICE_URL}/s3/copy"
 async def get_download_url(auth_header: str, request: PresignDownloadRequest) -> str:
     async with httpx.AsyncClient(timeout=5.0) as client:
         response = await client.post(
