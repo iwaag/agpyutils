@@ -1,27 +1,30 @@
+from typing import List
 import httpx
 import os
 from pydantic import BaseModel
 
-class S3ObjectRef(BaseModel):
+class ResourceRef(BaseModel):
     key: str
     domain: str
-    staging: bool = False
+    project: str | None = None
+    is_staging: bool = False
+    is_package: bool = False
 
+class ResuorceInfo(ResourceRef):
+    sub_resources: List[ResourceRef]
 
-class PresignUploadRequest(S3ObjectRef):
+class PresignUploadRequest(ResourceRef):
     expires_in: int | None = None
     content_type: str | None = None
 
-
-class PresignDownloadRequest(S3ObjectRef):
+class PresignDownloadRequest(ResourceRef):
     expires_in: int | None = None
     response_content_type: str | None = None
     response_content_disposition: str | None = None
 
-
 class CopyObjectRequest(BaseModel):
-    source: S3ObjectRef
-    destination: S3ObjectRef
+    source: ResourceRef
+    destination: ResourceRef
 
 STORAGE_SERVICE_URL=os.getenv("STORAGE_SERVICE_URL")
 DOWNLOAD_PRESIGN_URL=f"{STORAGE_SERVICE_URL}/s3/presign/download"
@@ -29,7 +32,6 @@ UPLOAD_PRESIGN_URL=f"{STORAGE_SERVICE_URL}/s3/presign/upload"
 COPY_URL=f"{STORAGE_SERVICE_URL}/s3/copy"
 DELETE_URL=f"{STORAGE_SERVICE_URL}/s3/delete"
 MOVE_URL=f"{STORAGE_SERVICE_URL}/s3/move"
-
 async def get_download_url(auth_header: str, request: PresignDownloadRequest) -> str:
     async with httpx.AsyncClient(timeout=5.0) as client:
         response = await client.post(
@@ -65,7 +67,7 @@ async def copy(
         )
 async def delete(
     auth_header: str,
-    object_ref: S3ObjectRef
+    object_ref: ResourceRef
 ) -> str:
     #payload = {
     #    "source": {"key": source_key, "domain": source_domain, "staging": source_staging},
