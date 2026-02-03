@@ -3,28 +3,28 @@ import httpx
 import os
 from pydantic import BaseModel
 
-class ResourceRef(BaseModel):
+class StorageResourceRef(BaseModel):
     key: str
     domain: str
     project: str | None = None
     is_staging: bool = False
     is_package: bool = False
 
-class ResuorceInfo(ResourceRef):
-    sub_resources: List[ResourceRef]
+class ResuorceInfo(StorageResourceRef):
+    sub_resources: List[StorageResourceRef]
 
-class PresignUploadRequest(ResourceRef):
+class PresignUploadRequest(StorageResourceRef):
     expires_in: int | None = None
     content_type: str | None = None
 
-class PresignDownloadRequest(ResourceRef):
+class PresignDownloadRequest(StorageResourceRef):
     expires_in: int | None = None
     response_content_type: str | None = None
     response_content_disposition: str | None = None
 
 class CopyObjectRequest(BaseModel):
-    source: ResourceRef
-    destination: ResourceRef
+    source: StorageResourceRef
+    destination: StorageResourceRef
 
 STORAGE_SERVICE_URL=os.getenv("STORAGE_SERVICE_URL")
 DOWNLOAD_PRESIGN_URL=f"{STORAGE_SERVICE_URL}/s3/presign/download"
@@ -67,7 +67,7 @@ async def copy(
         )
 async def delete(
     auth_header: str,
-    object_ref: ResourceRef
+    object_ref: StorageResourceRef
 ) -> str:
     #payload = {
     #    "source": {"key": source_key, "domain": source_domain, "staging": source_staging},
