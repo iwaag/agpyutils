@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "agpyutils"
-version = "0.1.11"
+version = "0.1.12"
 description = "shared utils for agdev services"
 requires-python = ">=3.9"
 dependencies = [
