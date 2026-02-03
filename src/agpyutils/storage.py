@@ -18,7 +18,7 @@ class PresignUploadRequest(StorageResourceRef):
     content_type: str | None = None
 
 class PresignDownloadRequest(BaseModel):
-    storate_resource_id: str
+    storage_resource_id: str
     expires_in: int | None = None
     response_content_type: str | None = None
     response_content_disposition: str | None = None
