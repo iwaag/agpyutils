@@ -6,6 +6,7 @@ from pydantic import BaseModel
 class StoredResourceRef(BaseModel):
     key: str
     domain: str
+    user_id: str
     project: str | None = None
     is_staging: bool = False
     is_package: bool = False
