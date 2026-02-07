@@ -3,13 +3,17 @@ import httpx
 import os
 from pydantic import BaseModel
 
-class StoredResourceRef(BaseModel):
-    key: str
+class BaseObjectRef(BaseModel):
     domain: str
     user_id: str
     project: str | None = None
-    is_staging: bool = False
-    is_package: bool = False
+
+class StaticObjectRef(BaseObjectRef):
+    key: str
+
+class DynamicObjectRef(BaseObjectRef):
+    purpose: str
+    group_id: str
 
 class PresignUploadOption(BaseModel):
     expires_in: int | None = None
@@ -30,7 +34,12 @@ UPLOAD_PRESIGN_URL=f"{STORAGE_SERVICE_URL}/s3/presign/upload"
 COPY_URL=f"{STORAGE_SERVICE_URL}/s3/copy"
 DELETE_URL=f"{STORAGE_SERVICE_URL}/s3/delete"
 MOVE_URL=f"{STORAGE_SERVICE_URL}/s3/move"
-async def get_download_url(auth_header: str, stored_resource_id: str, request: PresignDownloadOption) -> str:
+
+async def get_download_url(
+    auth_header: str,
+    stored_resource_id: str,
+    request: PresignDownloadOption
+) -> str:
     async with httpx.AsyncClient(timeout=5.0) as client:
         response = await client.post(
             DOWNLOAD_PRESIGN_URL,
@@ -40,7 +49,11 @@ async def get_download_url(auth_header: str, stored_resource_id: str, request: P
         )
         return response.json()["url"]
 
-async def get_upload_url(auth_header: str, stored_resource_id: str, request: PresignUploadOption) -> str:
+async def get_upload_url(
+    auth_header: str,
+    stored_resource_id: str, 
+    request: PresignUploadOption
+) -> str:
     async with httpx.AsyncClient(timeout=5.0) as client:
         response = await client.post(
             UPLOAD_PRESIGN_URL,
@@ -50,14 +63,11 @@ async def get_upload_url(auth_header: str, stored_resource_id: str, request: Pre
         )
         return response.json()["url"]
 
+
 async def copy(
     auth_header: str,
     request: CopyObjectRequest
 ) -> str:
-    #payload = {
-    #    "source": {"key": source_key, "domain": source_domain, "staging": source_staging},
-    #    "destination": {"key": destination_key, "domain": destination_domain, "staging": destination_staging},
-    #}
     async with httpx.AsyncClient(timeout=5.0) as client:
         response = await client.post(
             COPY_URL,
@@ -66,12 +76,8 @@ async def copy(
         )
 async def delete(
     auth_header: str,
-    object_ref: StoredResourceRef
+    object_ref: DynamicObjectRef
 ) -> str:
-    #payload = {
-    #    "source": {"key": source_key, "domain": source_domain, "staging": source_staging},
-    #    "destination": {"key": destination_key, "domain": destination_domain, "staging": destination_staging},
-    #}
     async with httpx.AsyncClient(timeout=5.0) as client:
         response = await client.post(
             DELETE_URL,
@@ -82,10 +88,6 @@ async def move(
     auth_header: str,
     request: CopyObjectRequest
 ) -> str:
-    #payload = {
-    #    "source": {"key": source_key, "domain": source_domain, "staging": source_staging},
-    #    "destination": {"key": destination_key, "domain": destination_domain, "staging": destination_staging},
-    #}
     async with httpx.AsyncClient(timeout=5.0) as client:
         response = await client.post(
             MOVE_URL,
