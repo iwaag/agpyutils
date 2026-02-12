@@ -6,7 +6,7 @@ from pydantic import BaseModel
 class BaseResourceRef(BaseModel):
     domain: str
     user_id: str
-    project: str | None = None
+    project_id: str | None = None
 
 class StaticObjectRef(BaseResourceRef):
     relative_key: str
