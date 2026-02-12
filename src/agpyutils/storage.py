@@ -48,7 +48,7 @@ async def get_static_object_download_url(
             headers={"authorization": auth_header},
             json={"ref": object_ref, "option": option.model_dump()}
         )
-        return response.json()["url"]
+        return response.json()
 
 async def get_static_object_upload_url(
     auth_header: str,
@@ -61,7 +61,7 @@ async def get_static_object_upload_url(
             headers={"authorization": auth_header},
             json={"ref": object_ref, "option": option.model_dump()}
         )
-        return response.json()["url"]
+        return response.json()
 
 
 # async def copy(
