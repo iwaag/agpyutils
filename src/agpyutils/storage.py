@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 class BaseResourceRef(BaseModel):
     domain: str
-    user_id: str
+    user_id: str | None = None
     project_id: str | None = None
 
 class StaticObjectRef(BaseResourceRef):
