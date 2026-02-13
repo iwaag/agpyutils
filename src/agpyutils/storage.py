@@ -41,27 +41,27 @@ async def get_static_object_download_url(
     auth_header: str,
     object_ref: StaticObjectRef,
     option: PresignDownloadOption = PresignDownloadOption()
-) -> str:
+) -> dict:
     async with httpx.AsyncClient(timeout=5.0) as client:
         response = await client.post(
             STATIC_DOWNLOAD_PRESIGN_URL,
             headers={"authorization": auth_header},
             json={"ref": object_ref.model_dump(), "option": option.model_dump()}
         )
-        return response.json()
+        return response.text
 
 async def get_static_object_upload_url(
     auth_header: str,
     object_ref: StaticObjectRef, 
     option: PresignUploadOption = PresignUploadOption()
-) -> str:
+) -> dict:
     async with httpx.AsyncClient(timeout=5.0) as client:
         response = await client.post(
             STATIC_UPLOAD_PRESIGN_URL,
             headers={"authorization": auth_header},
             json={"ref": object_ref.model_dump(), "option": option.model_dump()}
         )
-        return response.json()
+        return response.text
 
 
 # async def copy(
