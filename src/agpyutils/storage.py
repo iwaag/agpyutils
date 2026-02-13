@@ -46,7 +46,7 @@ async def get_static_object_download_url(
         response = await client.post(
             STATIC_DOWNLOAD_PRESIGN_URL,
             headers={"authorization": auth_header},
-            json={"ref": object_ref, "option": option.model_dump()}
+            json={"ref": object_ref.model_dump(), "option": option.model_dump()}
         )
         return response.json()
 
@@ -59,7 +59,7 @@ async def get_static_object_upload_url(
         response = await client.post(
             STATIC_UPLOAD_PRESIGN_URL,
             headers={"authorization": auth_header},
-            json={"ref": object_ref, "option": option.model_dump()}
+            json={"ref": object_ref.model_dump(), "option": option.model_dump()}
         )
         return response.json()
 
