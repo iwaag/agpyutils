@@ -41,7 +41,7 @@ async def get_static_object_download_url(
     auth_header: str,
     object_ref: StaticObjectRef,
     option: PresignDownloadOption = PresignDownloadOption()
-) -> dict:
+) -> str:
     async with httpx.AsyncClient(timeout=5.0) as client:
         response = await client.post(
             STATIC_DOWNLOAD_PRESIGN_URL,
@@ -54,7 +54,7 @@ async def get_static_object_upload_url(
     auth_header: str,
     object_ref: StaticObjectRef, 
     option: PresignUploadOption = PresignUploadOption()
-) -> dict:
+) -> str:
     async with httpx.AsyncClient(timeout=5.0) as client:
         response = await client.post(
             STATIC_UPLOAD_PRESIGN_URL,
