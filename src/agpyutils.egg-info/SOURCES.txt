@@ -1,0 +1,10 @@
+LICENSE
+pyproject.toml
+src/agpyutils/__init__.py
+src/agpyutils/auth.py
+src/agpyutils/storage.py
+src/agpyutils.egg-info/PKG-INFO
+src/agpyutils.egg-info/SOURCES.txt
+src/agpyutils.egg-info/dependency_links.txt
+src/agpyutils.egg-info/requires.txt
+src/agpyutils.egg-info/top_level.txt

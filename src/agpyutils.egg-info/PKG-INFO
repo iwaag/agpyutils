@@ -1,0 +1,10 @@
+Metadata-Version: 2.4
+Name: agpyutils
+Version: 0.1.23
+Summary: shared utils for agdev services
+Requires-Python: >=3.9
+License-File: LICENSE
+Requires-Dist: httpx
+Requires-Dist: PyJWT
+Requires-Dist: fastapi
+Dynamic: license-file
