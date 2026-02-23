@@ -1,4 +1,4 @@
 httpx
-PyJWT
 cryptography
+PyJWT
 fastapi

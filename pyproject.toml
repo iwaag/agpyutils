@@ -5,8 +5,8 @@ description = "shared utils for agdev services"
 requires-python = ">=3.9"
 dependencies = [
     "httpx",
-    "PyJWT",
     "cryptography",
+    "PyJWT",
     "fastapi"
 ]
 
