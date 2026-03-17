@@ -64,10 +64,7 @@ class AuthInfo:
     client_id: str
     token: str
 
-async def get_auth_info(
-    credentials: HTTPAuthorizationCredentials = Depends(_bearer_scheme),
-) -> AuthInfo:
-    token = credentials.credentials
+async def auth_info_from_bearer_token(token: str) -> AuthInfo:
     try:
         headers = jwt.get_unverified_header(token)
     except jwt.PyJWTError as exc:
@@ -108,8 +105,14 @@ async def get_auth_info(
     client_id = payload.get("azp")
     if not client_id:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Missing azp")
-    
-    return AuthInfo(user_id=user_id, client_id=client_id, token = token)
+
+    return AuthInfo(user_id=user_id, client_id=client_id, token=token)
+
+
+async def get_auth_info(
+    credentials: HTTPAuthorizationCredentials = Depends(_bearer_scheme),
+) -> AuthInfo:
+    return await auth_info_from_bearer_token(credentials.credentials)
     
 
 
