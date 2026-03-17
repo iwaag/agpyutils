@@ -9,18 +9,18 @@ class TaskStatus(StrEnum):
     DONE = "done"
 
 class TaskMetadata(BaseModel):
-    task_id: str
+    type_id: str
     user_id: str
     project_id: str
-    status: TaskStatus = TaskStatus.TODO
-    priority: int = Field(default=1, ge=1, le=3)
-    expire_at: Optional[datetime] = None
+    title: Optional[str] = None
+    description: Optional[str] = None
 
 class TaskBase(BaseModel):
     meta: TaskMetadata
 
 class Task_UnmanagedLabor(TaskBase):
     redirect_url: HttpUrl
+    hints: Optional[dict[str, str]] = None
     wait_for: timedelta = timedelta(minutes=5)
 
 class Task_UpdageState(TaskBase):

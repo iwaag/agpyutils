@@ -7,11 +7,20 @@ import agpyutils.task.hatchet.workflows.basic as workflows_basic
 from hatchet_sdk import Hatchet, TriggerWorkflowOptions
 import asyncio
 
+def unmanaged_labor(task: models.Task_UnmanagedLabor):
+    workflows_basic.task_labor_oath.run_no_wait(
+        input=task, options=TriggerWorkflowOptions(
+            additional_metadata={"user_id": task.meta.user_id, "project_id": task.meta.project_id, "type_id": task.meta.type_id})
+    )
 class TaskHub_Hatchet(TaskHub):
     def __init__(self):
         super().__init__()
 
     @override
     def request_unmanaged_labor(self, task: models.Task_UnmanagedLabor):
-        workflows_basic.task_unmanaged_labor.run_no_wait(input=task, options=TriggerWorkflowOptions(additional_metadata={"unmanaged_labor_user_id": task.meta.user_id}))
+        unmanaged_labor(task)
+
+    @override
+    def request_labor_auth(self, task: models.Task_UnmanagedLabor):
+        unmanaged_labor(task)
 

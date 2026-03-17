@@ -9,3 +9,7 @@ class TaskHub(ABC):
     @abstractmethod
     def request_unmanaged_labor(self, task: models.Task_UnmanagedLabor):
         pass
+
+    @abstractmethod
+    def request_labor_auth(self, task: models.Task_UnmanagedLabor):
+        pass
