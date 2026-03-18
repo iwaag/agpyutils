@@ -8,7 +8,7 @@ import httpx
 import jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-CLIEND_ID=os.getenv("CLIEND_ID")
+CLIENT_ID=os.getenv("CLIENT_ID")
 KEYCLOAK_CLIENT_SECRET=os.getenv("KEYCLOAK_CLIENT_SECRET")
 
 KEYCLOAK_URL = os.getenv("KEYCLOAK_URL", "http://localhost:8080")
@@ -124,12 +124,12 @@ async def exchange_token_for_own_client(
     subject_token: str,
     timeout_seconds: float = 5.0,
 ) -> dict[str, Any]:
-    if not CLIEND_ID:
+    if not CLIENT_ID:
         raise KeycloakAuthError("CLIENT_ID is not configured")
 
     form_data = {
         "grant_type": "urn:ietf:params:oauth:grant-type:token-exchange",
-        "client_id": CLIEND_ID,
+        "client_id": CLIENT_ID,
         "subject_token": subject_token,
         "subject_token_type": "urn:ietf:params:oauth:token-type:access_token",
         "requested_token_type": "urn:ietf:params:oauth:token-type:access_token",
