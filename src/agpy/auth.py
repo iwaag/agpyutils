@@ -74,7 +74,8 @@ def _find_signing_key(jwks: dict, kid: str | None) -> Optional[dict]:
 class AuthInfo:
     user_id: str
     client_id: str
-    token: str
+    auth_token: str
+    refresh_token: str
 
 async def auth_info_from_bearer_token(token: str) -> AuthInfo:
     try:
@@ -118,7 +119,7 @@ async def auth_info_from_bearer_token(token: str) -> AuthInfo:
     if not client_id:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Missing azp")
 
-    return AuthInfo(user_id=user_id, client_id=client_id, token=token)
+    return AuthInfo(user_id=user_id, client_id=client_id, auth_token=token)
 
 
 async def get_auth_info(

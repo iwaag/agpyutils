@@ -1,5 +1,5 @@
 Metadata-Version: 2.4
-Name: agpyutils
+Name: agpy
 Version: 0.1.40
 Summary: shared utils for agdev services
 Requires-Python: >=3.9
@@ -9,4 +9,5 @@ Requires-Dist: cryptography
 Requires-Dist: PyJWT
 Requires-Dist: fastapi
 Requires-Dist: hatchet_sdk
+Requires-Dist: sqlmodel
 Dynamic: license-file

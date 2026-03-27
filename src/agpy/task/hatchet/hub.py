@@ -1,9 +1,9 @@
 from abc import abstractmethod
 from typing import override
 
-from agpyutils.task.hub import TaskHub
-import agpyutils.task.models as models
-import agpyutils.task.hatchet.workflows.basic as workflows_basic
+from agpy.task.hub import TaskHub
+import agpy.task.models as models
+import agpy.task.hatchet.workflows.basic as workflows_basic
 from hatchet_sdk import Hatchet, TriggerWorkflowOptions
 import asyncio
 

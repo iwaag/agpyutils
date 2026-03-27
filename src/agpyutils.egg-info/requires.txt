@@ -3,3 +3,4 @@ cryptography
 PyJWT
 fastapi
 hatchet_sdk
+sqlmodel

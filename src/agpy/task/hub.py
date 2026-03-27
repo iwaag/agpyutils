@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-import agpyutils.task.models as models
+import agpy.task.models as models
 
 class TaskHub(ABC):
     def __init__(self):

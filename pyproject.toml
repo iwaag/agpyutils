@@ -1,5 +1,5 @@
 [project]
-name = "agpyutils"
+name = "agpy"
 version = "0.1.40"
 description = "shared utils for agdev services"
 requires-python = ">=3.9"
@@ -8,7 +8,9 @@ dependencies = [
     "cryptography",
     "PyJWT",
     "fastapi",
-    "hatchet_sdk"
+    "hatchet_sdk",
+    "sqlmodel",
+    
 ]
 
 [build-system]

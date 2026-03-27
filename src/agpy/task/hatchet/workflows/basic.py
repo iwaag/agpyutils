@@ -1,7 +1,7 @@
 from hatchet_sdk import DurableContext, Hatchet, Context
 from datetime import timedelta
 
-import agpyutils.task.models as models
+import agpy.task.models as models
 
 hatchet = Hatchet()
 
