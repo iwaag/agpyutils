@@ -11,7 +11,7 @@ from agpy.contracts.agcore.mission import (
     MissionUpdate,
 )
 
-from agpy.clients.auth.jwt import AuthInfo
+from agpy.contracts.auth.jwt import AuthInfo
 
 AGCORE_API_URL=os.getenv("AGCORE_API_URL")
 async def get_mission(self, mission_id: str, auth_info: AuthInfo) -> MissionListInfo:

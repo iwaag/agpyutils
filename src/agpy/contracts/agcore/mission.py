@@ -5,9 +5,6 @@ from typing import Optional, Sequence
 import httpx
 from pydantic import BaseModel, Field
 
-from agpy.clients.auth.jwt import AuthInfo
-from agpy.clients.agcore.mission import AGCORE_API_URL
-
 class MissionInfo(BaseModel):
     id: str
     title: str
