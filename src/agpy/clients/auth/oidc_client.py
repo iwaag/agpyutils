@@ -46,4 +46,4 @@ async def issue_own_client_access_token(
         subject_token=subject_token,
         timeout_seconds=timeout_seconds,
     )
-    return token_response["access_token"]
+    return token_response.access_token
