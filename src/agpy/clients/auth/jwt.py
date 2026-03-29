@@ -54,4 +54,4 @@ async def auth_info_from_bearer_token(token: str) -> AuthInfo:
     if not client_id:
         raise JWTAuthError("Missing azp")
 
-    return AuthInfo(user_id=user_id, client_id=client_id, auth_token=token)
+    return AuthInfo(user_id=user_id, client_id=client_id, token=token)

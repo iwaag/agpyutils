@@ -18,7 +18,7 @@ async def get_mission(self, mission_id: str, auth_info: AuthInfo) -> MissionList
     async with httpx.AsyncClient(timeout=5.0) as client:
         response = await client.post(
             AGCORE_API_URL + f"/mission/get/{mission_id}",
-            headers={"authorization": "bearer " + auth_info.auth_token}
+            headers={"authorization": "bearer " + auth_info.token}
         )
         return MissionListInfo.model_validate(response.json())
 

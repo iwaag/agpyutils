@@ -17,4 +17,4 @@ class TokenExchangeResponse(BaseModel):
 class AuthInfo(BaseModel):
     user_id: str
     client_id: str
-    auth_token: str
+    token: str
