@@ -14,7 +14,7 @@ from agpy.contracts.agcore.mission import (
 from agpy.contracts.auth.jwt import AuthInfo
 
 AGCORE_API_URL=os.getenv("AGCORE_API_URL")
-async def get_mission(self, mission_id: str, auth_info: AuthInfo) -> MissionListInfo:
+async def get_mission(mission_id: str, auth_info: AuthInfo) -> MissionListInfo:
     async with httpx.AsyncClient(timeout=5.0) as client:
         response = await client.post(
             AGCORE_API_URL + f"/mission/get/{mission_id}",
