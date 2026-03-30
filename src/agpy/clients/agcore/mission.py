@@ -25,7 +25,7 @@ async def get_mission(mission_id: str, auth_info: AuthInfo) -> MissionListInfo:
 async def create_mission(request: MissionCreateRequest, auth_info: AuthInfo) -> MissionInfo:
     pass
 
-async def list_missions() -> MissionListInfo:
+async def list_missions(, auth: AuthInfo) -> MissionListInfo:
     pass
 
 async def complete_mission(mission_id: str, auth: AuthInfo) -> MissionListInfo:

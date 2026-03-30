@@ -1,6 +1,6 @@
 [project]
 name = "agpy"
-version = "0.1.50"
+version = "0.1.51"
 description = "shared utils for agdev services"
 requires-python = ">=3.9"
 dependencies = [
